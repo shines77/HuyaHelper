@@ -11,11 +11,26 @@ debug.setDebug = function setDebug(is_debug) {
 
 debug.print = function print(format, ...params) {
     if (debug.is_debug) {
-        var args = Array.prototype.slice.call(arguments);
-        var num_args = arguments.length;
-        //console.log("num_args = " + num_args);
         var text = util.format(format, ...params);
         console.log(text);
+    }
+}
+
+debug._print = function _print(format, ...params) {
+    if (debug.is_debug) {
+        if (true || format.indexOf("%") == -1) {
+            var text = util.format(format, ...params);
+            util.print(text);
+            util.print("\n");
+        }
+        else {
+            var args = Array.prototype.slice.call(arguments);
+            var num_args = arguments.length;
+            for (i = 0; i < args.length; i++) {
+                util.print(args[i]);
+            }
+            util.print("\n");
+        }
     }
 }
 
