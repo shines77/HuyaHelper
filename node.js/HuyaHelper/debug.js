@@ -14,16 +14,17 @@ debug.print = function print(format, ...params) {
         var args = Array.prototype.slice.call(arguments);
         var num_args = arguments.length;
         //console.log("num_args = " + num_args);
-        if (format.indexOf("%") == -1) {
+        if (true || format.indexOf("%") == -1) {
+            var text = util.format(format, ...params);
+            util.print(text);
+            util.print("\n");
+        }
+        else {
             for (i = 0; i < args.length; i++) {
                 util.print(args[i]);
             }
+            util.print("\n");
         }
-        else {
-            var text = util.format(format, params);
-            util.print(text);
-        }
-        util.print("\n");
     }
 }
 

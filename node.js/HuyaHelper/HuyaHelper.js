@@ -138,15 +138,15 @@ HuyaHelper.prototype.loginDanmu = function (appId, secretId, roomId) {
         }
         else if (dataType == "Object") {
             var jsonStr = JSON.stringify(data)
-            debug.print("json = " + jsonStr);
+            //debug.print("json = " + jsonStr);
 
             var json = JSON.parse(data);
             if (json.statusCode == 200) {
-                // TODO: 处理弹幕数据json.data
+                // TODO: processing danmu data: json.data
                 debug.print('[' + json.data.sendNick + ']: ' + json.data.content + '');
             }
             else {
-                // TODO: 错误处理
+                // TODO: Error handler
                 debug.print("Error: statusCode = " + json.statusCode);
             }
         }
