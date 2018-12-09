@@ -1,0 +1,10 @@
+{
+	"name": "HuyaHelper",
+	"description": "A live assistant kit for HuyaLive.",
+	"dependencies": {
+		"ws": ">= 0.0.0",
+		"wss": ">= 0.0.0",
+		"node-uuid": ">= 1.4.1"
+	},
+	"readmeFilename": "README.md"
+}
