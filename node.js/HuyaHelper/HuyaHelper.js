@@ -17,7 +17,7 @@ function getTimestamp() {
 }
 
 function HuyaHelper() {
-    this.isWss = false;
+    this.isWss = true;
     this.heartbeat_ms = 15000;
     this.timeout_ms = 30000;
     this.pingInterval = null;
@@ -35,7 +35,7 @@ HuyaHelper.prototype.heartbeat = function() {
         debug.print(">>>> HuyaHelper::heartbeat() this.pingInterval create.");
         that.danmuSocket.send('ping');
         that.pingInterval = setInterval(function ping() {
-            debug.print("this.danmuSocket.readyState = ", that.danmuSocket.readyState);
+            //debug.print("this.danmuSocket.readyState = ", that.danmuSocket.readyState);
             if (that.danmuSocket.readyState == WebSocket.OPEN) {
                 that.danmuSocket.send('ping');
             }
@@ -69,14 +69,14 @@ HuyaHelper.prototype.loginDanmu = function (appId, secretId, roomId) {
     debug.enter("HuyaHelper::loginDanmu()");
 
     var ApiHost = "openapi.huya.com";
-    ApiHost = "127.0.0.1:8080";
+    //ApiHost = "127.0.0.1:8080";
 
+    var timestamp = getTimestamp();
     var data = "{\"roomId\":" + roomId + "}";
     var md5 = crypto.createHash('md5');
     var sign_orig = 'data=' + data + '&key=' + secretId + '&timestamp=' + timestamp;
     var sign = md5.update(sign_orig).digest('hex');
 
-    var timestamp = getTimestamp();
     var apiUrl;
     if (that.isWss)
         apiUrl = "wss://";
@@ -121,26 +121,28 @@ HuyaHelper.prototype.loginDanmu = function (appId, secretId, roomId) {
         debug.leave("danmuSocket::on_close()");
     });
     
-    // 处理到来的信令
+    // Processing the received message.
     that.danmuSocket.on('message', function incoming(data) {
         debug.enter("danmuSocket::on_message()");
 
         debug.print("typeof(data) = " + typeof(data));
         debug.print('on_message: ', data);
 
-        var dataType = typeof(data);
-
-        if (dataType == "string") {
-            if (data == "pong") {
-                //debug.print("timestamp: " + getTimestamp() + ", pong.");
-                debug.print("timestamp: %d, pong.", getTimestamp());
-            }
+        var json_str;
+        var dataType = typeof(data);        
+        if (dataType != "Object") {
+            json_str = data;
         }
-        else if (dataType == "Object") {
-            var jsonStr = JSON.stringify(data)
-            //debug.print("json = " + jsonStr);
+        else {
+            json_str = JSON.stringify(data)
+            //debug.print("json = " + json_str);
+        }
 
-            var json = JSON.parse(data);
+        if (json_str == "pong") {
+            debug.print("timestamp: %d, pong.", getTimestamp());
+        }
+        else {
+            var json = JSON.parse(json_str);
             if (json.statusCode == 200) {
                 // TODO: processing danmu data: json.data
                 debug.print('[' + json.data.sendNick + ']: ' + json.data.content + '');

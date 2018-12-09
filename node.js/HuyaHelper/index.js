@@ -1,6 +1,4 @@
 
-// Node.js
-
 'use strict';
 
 var HuyaHelper = require('./HuyaHelper');
