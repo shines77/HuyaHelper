@@ -3,7 +3,7 @@ var util = require('util');
 
 var debug = exports = module.exports = {};
 
-debug.is_debug = true;
+debug.is_debug = false;
 
 debug.setDebug = function setDebug(is_debug) {
     debug.is_debug = is_debug;
