@@ -9,5 +9,8 @@ console.log("");
 
 var huyaHelper = HuyaHelper.create();
 
-huyaHelper.loginDanmu("15405257255989910", "1efb490c", 15382773);
-huyaHelper.loginGift("15405257255989910", "1efb490c", 15382773);
+//huyaHelper.loginDanmu("154440619445824126", "790130ee", 15382773);
+//huyaHelper.loginGift("154440619445824126", "790130ee", 15382773);
+
+huyaHelper.loginDanmu("154440619445824126", "790130ee", 666007);
+huyaHelper.loginGift("154440619445824126", "790130ee", 666007);
