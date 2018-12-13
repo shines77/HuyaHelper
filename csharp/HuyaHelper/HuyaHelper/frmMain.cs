@@ -18,6 +18,9 @@ namespace HuyaHelper
 
         private bool isActived = false;
 
+        private delegate void delegateChatMsg(string nickname, string content);
+        private delegate void delegateGiftMsg(string nickname, string itemName, int itemCount);
+
         public frmMain()
         {
             closing.Set(0);
@@ -28,93 +31,113 @@ namespace HuyaHelper
         public void appendChatMsg(string nickname, string content)
         {
             if (this.Handle == null || closing.GetAndAdd(0) == 1)
-                return;
-
-            int cnt = msg_cnt.Increment();
-            if (cnt > 500)
             {
-                chatContent.Clear();
-                chatContent.ClearUndo();
-                msg_cnt.Set(0);
-                GC.Collect();
+                return;
             }
 
-            chatContent.Focus();
-
-            string text;
-            //text = string.Format("[{0}]: {1}\n", nickname, content);
-            //text = cnt.ToString() + "\n";
-            //chatContent.AppendText(text);
-
-            chatContent.SelectionColor = Color.Black;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText("[");
-
-            chatContent.SelectionColor = Color.Blue;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText(nickname);
-
-            chatContent.SelectionColor = Color.Black;
-            chatContent.SelectionLength = 0;
-            text = string.Format("]: {0}\n", content);
-            chatContent.AppendText(text);
-
-            //chatContent.Focus();
-            if (!isActived && (cnt % 10) == 9)
+            if (chatContent.InvokeRequired)
             {
-                //chatContent.Select(chatContent.TextLength, 0);
-                chatContent.ScrollToCaret();
+                delegateChatMsg delegates = new delegateChatMsg(appendChatMsg);
+                chatContent.Invoke(delegates, nickname, content);
+            }
+            else
+            {
+                int cnt = msg_cnt.Increment();
+                if (cnt > 500)
+                {
+                    chatContent.Clear();
+                    chatContent.ClearUndo();
+                    msg_cnt.Set(0);
+                    GC.Collect();
+                }
+
+                if (!isActived && (cnt % 10) == 9)
+                {
+                    chatContent.Focus();
+                    chatContent.Select(chatContent.TextLength, 0);
+                    chatContent.ScrollToCaret();
+                }
+
+                string text;
+                //text = string.Format("[{0}]: {1}\n", nickname, content);
+                //text = cnt.ToString() + "\n";
+                //chatContent.AppendText(text);
+
+                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText("[");
+
+                chatContent.SelectionColor = Color.Blue;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText(nickname);
+
+                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionLength = 0;
+                text = string.Format("]: {0}\n", content);
+                chatContent.AppendText(text);
+
+                //chatContent.Focus();
             }
         }
 
         public void appendGiftMsg(string nickname, string itemName, int itemCount)
         {
             if (this.Handle == null || closing.GetAndAdd(0) == 1)
-                return;
-
-            int cnt = msg_cnt.Increment();
-            if (cnt > 500)
             {
-                chatContent.Clear();
-                chatContent.ClearUndo();
-                msg_cnt.Set(0);
-                GC.Collect();
+                return;
             }
 
-            chatContent.Focus();
-
-            string text;
-            //text = string.Format("[{0}]: {1} x {2}\n",
-            //                     nickname, itemName, itemCount);
-            //text = cnt.ToString() + "\n";
-            //chatContent.AppendText(text);
-
-            chatContent.SelectionColor = Color.Black;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText("[");
-
-            chatContent.SelectionColor = Color.Blue;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText(nickname);
-
-            chatContent.SelectionColor = Color.Black;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText("]: ");
-
-            chatContent.SelectionColor = Color.Red;
-            chatContent.SelectionLength = 0;
-            chatContent.AppendText(itemName);
-
-            chatContent.SelectionColor = Color.Black;
-            chatContent.SelectionLength = 0;
-            text = string.Format(" x {0}\n", itemCount);
-            chatContent.AppendText(text);
-
-            //chatContent.Focus();
-            if (!isActived && (cnt % 10) == 9)
+            if (chatContent.InvokeRequired)
             {
-                //chatContent.Select(chatContent.TextLength, 0);
-                chatContent.ScrollToCaret();
+                delegateGiftMsg delegates = new delegateGiftMsg(appendGiftMsg);
+                chatContent.Invoke(delegates, nickname, itemName, itemCount);
+            }
+            else
+            {
+                int cnt = msg_cnt.Increment();
+                if (cnt > 500)
+                {
+                    chatContent.Clear();
+                    chatContent.ClearUndo();
+                    msg_cnt.Set(0);
+                    GC.Collect();
+                }
+
+                if (!isActived && (cnt % 10) == 9)
+                {
+                    chatContent.Focus();
+                    chatContent.Select(chatContent.TextLength, 0);
+                    chatContent.ScrollToCaret();
+                }
+
+                string text;
+                //text = string.Format("[{0}]: {1} x {2}\n",
+                //                     nickname, itemName, itemCount);
+                //text = cnt.ToString() + "\n";
+                //chatContent.AppendText(text);
+
+                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText("[");
+
+                chatContent.SelectionColor = Color.Blue;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText(nickname);
+
+                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText("]: ");
+
+                chatContent.SelectionColor = Color.Red;
+                chatContent.SelectionLength = 0;
+                chatContent.AppendText(itemName);
+
+                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionLength = 0;
+                text = string.Format(" x {0}\n", itemCount);
+                chatContent.AppendText(text);
+
+                //chatContent.Focus();
             }
         }
 
