@@ -63,16 +63,19 @@ namespace HuyaHelper
                 //text = cnt.ToString() + "\n";
                 //chatContent.AppendText(text);
 
+                chatContent.SelectionStart = chatContent.TextLength;
+                chatContent.SelectionLength = 0;
                 chatContent.SelectionColor = Color.Black;
-                chatContent.SelectionLength = 0;
                 chatContent.AppendText("[");
-
-                chatContent.SelectionColor = Color.Blue;
+                
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Blue;
                 chatContent.AppendText(nickname);
 
-                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Black;
                 text = string.Format("]: {0}\n", content);
                 chatContent.AppendText(text);
 
@@ -116,24 +119,29 @@ namespace HuyaHelper
                 //text = cnt.ToString() + "\n";
                 //chatContent.AppendText(text);
 
-                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Black;
                 chatContent.AppendText("[");
 
-                chatContent.SelectionColor = Color.Blue;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Blue;
                 chatContent.AppendText(nickname);
 
-                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Black;
                 chatContent.AppendText("]: ");
 
-                chatContent.SelectionColor = Color.Red;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Red;
                 chatContent.AppendText(itemName);
 
-                chatContent.SelectionColor = Color.Black;
+                chatContent.SelectionStart = chatContent.TextLength;
                 chatContent.SelectionLength = 0;
+                chatContent.SelectionColor = Color.Black;
                 text = string.Format(" x {0}\n", itemCount);
                 chatContent.AppendText(text);
 
@@ -186,6 +194,16 @@ namespace HuyaHelper
         }
         //*/
 
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            isActived = true;
+        }
+
+        private void frmMain_Deactivate(object sender, EventArgs e)
+        {
+            isActived = false;
+        }
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             int result;
@@ -194,8 +212,11 @@ namespace HuyaHelper
 
             isActived = true;
 
+            // Nv wang yan
+            result = chatroom.run("626813");
+
             // La feng long
-            result = chatroom.run("520880");
+            //result = chatroom.run("520880");
 
             // Ka'er
             //result = chatroom.run("521000");
@@ -211,16 +232,6 @@ namespace HuyaHelper
 
             // Guozi
             //result = chatroom.run("15382773");
-        }
-
-        private void frmMain_Activated(object sender, EventArgs e)
-        {
-            isActived = true;
-        }
-
-        private void frmMain_Deactivate(object sender, EventArgs e)
-        {
-            isActived = false;
         }
     }
 }

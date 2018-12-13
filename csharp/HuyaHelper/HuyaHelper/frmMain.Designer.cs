@@ -41,7 +41,7 @@
             this.chatContent.Name = "chatContent";
             this.chatContent.ReadOnly = true;
             this.chatContent.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.chatContent.Size = new System.Drawing.Size(655, 499);
+            this.chatContent.Size = new System.Drawing.Size(656, 524);
             this.chatContent.TabIndex = 0;
             this.chatContent.Text = "";
             // 
@@ -49,10 +49,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 577);
+            this.ClientSize = new System.Drawing.Size(704, 570);
             this.Controls.Add(this.chatContent);
             this.Name = "frmMain";
-            this.Text = "Huya Player v1.0";
+            this.Text = "HuyaHelper v1.0";
             this.Activated += new System.EventHandler(this.frmMain_Activated);
             this.Deactivate += new System.EventHandler(this.frmMain_Deactivate);
             this.Load += new System.EventHandler(this.frmMain_Load);

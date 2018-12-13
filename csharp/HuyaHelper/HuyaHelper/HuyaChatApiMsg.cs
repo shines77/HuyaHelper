@@ -113,7 +113,7 @@ namespace HuyaHelper
 
         private void onHeartbeat(object state)
         {
-            Debug.WriteLine("HuyaChatApiMsg::onHeartbeat()");
+            //Debug.WriteLine("HuyaChatApiMsg::onHeartbeat()");
             websocket.Send("ping");
         }
 
