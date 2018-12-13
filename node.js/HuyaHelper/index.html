@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HuyaHelper</title>
+</head>
+<body style="width: 100%; height: 100%;">
+
+<p>'Right click' to show context menu.</p>
+
+<p>
+发言：<input id="chat_msg" type="text" value="" maxlength="30" placeholder="请输入您的聊天文字" onkeyup="enter_chat();"></input> &nbsp;<input id="send_msg" type="button" value="发送" onclick="append_chat('test');"></input>
+</p>
+
+<p><textarea id="chat_content" rows="20" cols="50" wrap="soft" placeholder="您的聊天纪录..." autofocus></textarea></p>
+
+<script>
+// Create an empty context menu
+var menu = new nw.Menu();
+
+// Add some items with label
+menu.append(new nw.MenuItem({
+  label: 'Item A',
+  click: function(){
+    alert('You have clicked at "Item A"');
+  }
+}));
+menu.append(new nw.MenuItem({ label: 'Item B' }));
+menu.append(new nw.MenuItem({ type: 'separator' }));
+menu.append(new nw.MenuItem({ label: 'Item C' }));
+
+// Hooks the "contextmenu" event
+document.body.addEventListener('contextmenu', function(ev) {
+  // Prevent showing default context menu
+  ev.preventDefault();
+  // Popup the native context menu at place you click
+  menu.popup(ev.x, ev.y);
+
+  return false;
+}, false);
+
+function addKeyEvent() {
+	var chat_msg = document.getElementById('chat_msg');
+	if (chat_msg !== "undefined") {
+		chat_msg.addEventListener("keyup", function(event) {
+			result.push({
+				event  : 'keyup',
+				value  : this.value,
+				keyCode : event.keyCode
+			});
+		});
+	}
+}
+
+function enter_chat(sender, envet) {
+	if (event.keyCode == 13) {
+		send_chat();
+		return true;
+	}
+	return false;
+}
+
+function send_chat() {
+	var chat_msg = document.getElementById('chat_msg');
+	var msg = chat_msg.value.trim();
+	if (msg !== "") {
+		var chat_content = document.getElementById('chat_content');
+		//chat_content.placeholder = "";
+		var old_value = chat_content.value;
+		chat_content.value = old_value + msg + "\n";
+		chat_msg.value = "";
+		return true;
+	}
+	else {
+		alert("不能发送空消息!");
+		return false;
+	}
+}
+
+function append_chat(text) {
+	var msg = text.trim();
+	if (msg !== "") {
+		var chat_content = document.getElementById('chat_content');
+		var old_value = chat_content.value;
+		chat_content.value = old_value + msg + "\n";
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+</script>
+
+<script src="vConsole/vconsole.min.js"></script>
+<!--<script src="./index.js"></script>-->
+</body>
+</html>
