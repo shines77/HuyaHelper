@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,21 +26,51 @@ namespace HuyaHelper
             giftMessage.setParent(form);
         }
 
-        public int run(string roomId)
+        public bool isRunning()
+        {
+            bool isRunningChat = false;
+            if (chatMessage != null)
+            {
+                isRunningChat = chatMessage.isRunning();
+            }
+
+            bool isRunningGift = false;
+            if (giftMessage != null)
+            {
+                isRunningGift = giftMessage.isRunning();
+            }
+
+            return (isRunningChat && isRunningGift);
+        }
+
+        public int login(string roomId)
         {
             int resultChat = -1;
             if (chatMessage != null)
             {
-                resultChat = chatMessage.run(appId, secretId, roomId);
+                resultChat = chatMessage.login(appId, secretId, roomId);
             }
 
             int resultGift = -1;
-            if (chatMessage != null)
+            if (giftMessage != null)
             {
-                resultGift = giftMessage.run(appId, secretId, roomId);
-                resultGift = 1;
+                resultGift = giftMessage.login(appId, secretId, roomId);
             }
             return ((resultChat >= 0) && (resultGift >= 0)) ? 1 : 0;
+        }
+
+        public int logout()
+        {
+            if (chatMessage != null)
+            {
+                chatMessage.logout();
+            }
+
+            if (giftMessage != null)
+            {
+                giftMessage.logout();
+            }
+            return 1;
         }
     }
 }

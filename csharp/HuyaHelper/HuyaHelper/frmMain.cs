@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +12,8 @@ namespace HuyaHelper
 {
     public partial class frmMain : Form
     {
+        private HuyaChatRoom chatroom = null;
+
         private AtomicInt msg_cnt = new AtomicInt();
         private AtomicInt closing = new AtomicInt();
 
@@ -21,11 +22,36 @@ namespace HuyaHelper
         private delegate void delegateChatMsg(string nickname, string content);
         private delegate void delegateGiftMsg(string nickname, string itemName, int itemCount);
 
+        private struct RoomIdInfo
+        {
+            public string roomId;
+            public string roomIntro;
+        }
+
+        private static RoomIdInfo[] roomIdInfos = {
+            new RoomIdInfo { roomId = "0",        roomIntro = "请选择一个主播" },
+            new RoomIdInfo { roomId = "520880",   roomIntro = "520880 (拉风龙)" },
+            new RoomIdInfo { roomId = "521000",   roomIntro = "521000 (卡尔)" },
+            new RoomIdInfo { roomId = "626813",   roomIntro = "626813 (女王盐)" },
+            new RoomIdInfo { roomId = "666007",   roomIntro = "666007 (大申屠)" },
+            new RoomIdInfo { roomId = "908400",   roomIntro = "908400 (董小飒)" },
+            new RoomIdInfo { roomId = "931827",   roomIntro = "931827 (大圣归来)" },
+            new RoomIdInfo { roomId = "15382773", roomIntro = "15382773 (郭子)" },
+        };
+
         public frmMain()
         {
-            closing.Set(0);
             InitializeComponent();
+
             CheckForIllegalCrossThreadCalls = false;
+            closing.Set(0);
+        }
+
+        public void clearChatContent()
+        {
+            chatContent.Focus();
+            chatContent.Clear();
+            chatContent.ClearUndo();
         }
 
         public void appendChatMsg(string nickname, string content)
@@ -105,6 +131,8 @@ namespace HuyaHelper
                     msg_cnt.Set(0);
                     GC.Collect();
                 }
+
+                //chatContent.Focus();
 
                 if (!isActived && (cnt % 10) == 9)
                 {
@@ -206,32 +234,64 @@ namespace HuyaHelper
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            int result;
-            HuyaChatRoom chatroom = new HuyaChatRoom();
-            chatroom.setParent(this);
+            chatroom = new HuyaChatRoom();
+            if (chatroom != null)
+            {
+                chatroom.setParent(this);
+            }
 
             isActived = true;
 
-            // Nv wang yan
-            result = chatroom.run("626813");
+            cbBoxRoomId.Items.Clear();
 
-            // La feng long
-            //result = chatroom.run("520880");
+            int infoLength = roomIdInfos.Length;
+            ListItem[] listItems = new ListItem[infoLength];
+            for (int i = 0; i < infoLength; i++)
+            {
+                RoomIdInfo info = roomIdInfos[i];
+                listItems[i] = new ListItem(info.roomId, info.roomIntro);
+                cbBoxRoomId.Items.Add(listItems[i]);
+            }
 
-            // Ka'er
-            //result = chatroom.run("521000");
+            cbBoxRoomId.SelectedIndex = 0;
+            cbBoxRoomId.SelectedItem = listItems[0];
+        }
 
-            // Shen tu
-            //result = chatroom.run("666007");
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            int result;
+            if (chatroom != null)
+            {
+                if (chatroom.isRunning())
+                {
+                    chatroom.logout();
+                }
 
-            // Dong xiao sa
-            //result = chatroom.run("908400");
+                string roomId = txtBoxRoomId.Text;
+                roomId.Trim();
+                if (roomId != "")
+                {
+                    result = chatroom.login(roomId);
+                }
+                else
+                {
+                    MessageBox.Show("房间号不能为空!", "HuyaHelper");
+                }
+            }
+        }
 
-            // Hou'ge
-            //result = chatroom.run("931827");
-
-            // Guozi
-            //result = chatroom.run("15382773");
+        private void cbBoxRoomId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListItem listItem = cbBoxRoomId.SelectedItem as ListItem;
+            if (listItem != null)
+            {
+                string roomId = listItem.Id;
+                roomId.Trim();
+                if (roomId != "" && roomId != "0")
+                {
+                    txtBoxRoomId.Text = roomId;
+                }
+            }
         }
     }
 }

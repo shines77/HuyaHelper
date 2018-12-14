@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -10,7 +9,6 @@ using WebSocketSharp;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace HuyaHelper
 {
@@ -27,6 +25,7 @@ namespace HuyaHelper
     {
         private frmMain parent = null;
         private ActionType actionType = ActionType.None;
+        private bool bIsRunning = false;
 
         private object locker = new object();
 
@@ -51,6 +50,11 @@ namespace HuyaHelper
         public void setParent(frmMain form)
         {
             this.parent = form;
+        }
+
+        public bool isRunning()
+        {
+            return bIsRunning;
         }
 
         public ActionType getActionType()
@@ -122,8 +126,13 @@ namespace HuyaHelper
             Debug.WriteLine("HuyaChatApiMsg::onOpen() enter");
             if (websocket != null)
             {
+                bIsRunning = true;
                 if (websocket.ReadyState == WebSocketSharp.WebSocketState.Open)
                 {
+                    //lock (locker)
+                    {
+                        parent.clearChatContent();
+                    }
                     //
                     // See: https://www.cnblogs.com/arxive/p/7015853.html
                     //
@@ -260,6 +269,7 @@ namespace HuyaHelper
                 heartbeatTimer.Dispose();
                 heartbeatTimer = null;
             }
+            bIsRunning = false;
             Debug.WriteLine("HuyaChatApiMsg::onClose() leave");
         }
 
@@ -325,11 +335,27 @@ namespace HuyaHelper
 
         public void close()
         {
+            if (heartbeatTimer != null)
+            {
+                heartbeatTimer.Dispose();
+                heartbeatTimer = null;
+            }
+
             if (websocket != null)
             {
                 websocket.Close();
                 websocket = null;
             }
+
+            bIsRunning = false;
+        }
+
+        public int logout()
+        {
+            Debug.WriteLine("HuyaChatApiMsg::logout() enter");
+            close();
+            Debug.WriteLine("HuyaChatApiMsg::logout() leave");
+            return 1;
         }
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="HuyaGiftMessage.cs" />
     <Compile Include="HuyaGiftMsg.cs" />
     <Compile Include="HuyaNoticeMessage.cs" />
+    <Compile Include="ListItem.cs" />
     <Compile Include="MD5Crypto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
