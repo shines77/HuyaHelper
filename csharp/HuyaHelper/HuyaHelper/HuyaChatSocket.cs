@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.WebSockets;
+using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace HuyaHelper
 {
-    public class HuyaChatMsg : HuyaChatApiMsg
+    public class HuyaChatSocket : HuyaApiSocket
     {
-        public HuyaChatMsg()
+        public HuyaChatSocket()
         {
             setActionType(ActionType.getMessageNotice);
         }

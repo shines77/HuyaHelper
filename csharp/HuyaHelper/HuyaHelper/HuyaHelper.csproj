@@ -50,6 +50,9 @@
   <PropertyGroup>
     <StartupObject>HuyaHelper.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>HuyaHelper.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,13 +79,13 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="HuyaChatApiMsg.cs" />
-    <Compile Include="HuyaChatMsg.cs" />
+    <Compile Include="HuyaApiSocket.cs" />
     <Compile Include="HuyaChatRoom.cs" />
-    <Compile Include="HuyaDanmuMessage.cs" />
+    <Compile Include="HuyaApiMessage.cs" />
+    <Compile Include="HuyaChatSocket.cs" />
     <Compile Include="HuyaGiftMessage.cs" />
-    <Compile Include="HuyaGiftMsg.cs" />
-    <Compile Include="HuyaNoticeMessage.cs" />
+    <Compile Include="HuyaChatMessage.cs" />
+    <Compile Include="HuyaGiftSocket.cs" />
     <Compile Include="ListItem.cs" />
     <Compile Include="MD5Crypto.cs" />
     <Compile Include="Program.cs" />
@@ -125,6 +128,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HuyaHelper.ico" />
+    <Content Include="HuyaLive.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

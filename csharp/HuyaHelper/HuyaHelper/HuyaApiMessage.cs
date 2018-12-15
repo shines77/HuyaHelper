@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HuyaHelper
 {
-    public class HuyaDanmuMessage<TDataType>
+    public class HuyaApiMessage<TDataType>
     {
         public int statusCode;
         public string statusMsg;

@@ -30,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.chatContent = new System.Windows.Forms.RichTextBox();
             this.txtBoxRoomId = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,14 +47,14 @@
             this.chatContent.Name = "chatContent";
             this.chatContent.ReadOnly = true;
             this.chatContent.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.chatContent.Size = new System.Drawing.Size(656, 524);
+            this.chatContent.Size = new System.Drawing.Size(656, 544);
             this.chatContent.TabIndex = 0;
             this.chatContent.Text = "";
             // 
             // txtBoxRoomId
             // 
             this.txtBoxRoomId.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtBoxRoomId.Location = new System.Drawing.Point(118, 17);
+            this.txtBoxRoomId.Location = new System.Drawing.Point(107, 17);
             this.txtBoxRoomId.Name = "txtBoxRoomId";
             this.txtBoxRoomId.Size = new System.Drawing.Size(100, 23);
             this.txtBoxRoomId.TabIndex = 1;
@@ -69,7 +70,7 @@
             // 
             this.lblRoomId.AutoSize = true;
             this.lblRoomId.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblRoomId.Location = new System.Drawing.Point(23, 22);
+            this.lblRoomId.Location = new System.Drawing.Point(12, 22);
             this.lblRoomId.Name = "lblRoomId";
             this.lblRoomId.Size = new System.Drawing.Size(91, 14);
             this.lblRoomId.TabIndex = 2;
@@ -78,7 +79,7 @@
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnLogin.Location = new System.Drawing.Point(373, 16);
+            this.btnLogin.Location = new System.Drawing.Point(362, 16);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 3;
@@ -91,7 +92,7 @@
             this.cbBoxRoomId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBoxRoomId.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbBoxRoomId.FormattingEnabled = true;
-            this.cbBoxRoomId.Location = new System.Drawing.Point(228, 17);
+            this.cbBoxRoomId.Location = new System.Drawing.Point(217, 17);
             this.cbBoxRoomId.Name = "cbBoxRoomId";
             this.cbBoxRoomId.Size = new System.Drawing.Size(137, 22);
             this.cbBoxRoomId.TabIndex = 4;
@@ -101,13 +102,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 590);
+            this.ClientSize = new System.Drawing.Size(681, 607);
             this.Controls.Add(this.cbBoxRoomId);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblRoomId);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxRoomId);
             this.Controls.Add(this.chatContent);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HuyaHelper v1.0";

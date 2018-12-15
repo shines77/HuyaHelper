@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HuyaHelper
 {
-    public class NoticeMessage
+    public class ChatMessage
     {
         public int    roomId;
         public string sendNick;
@@ -17,13 +17,13 @@ namespace HuyaHelper
     }
 
     //[StructLayout(LayoutKind.Sequential)]
-    public class SimpleNoticeMessage
+    public class SimpleChatMessage
     {
         public string sendNick;
         public string content;
     }
 
-    public class HuyaNoticeMessage : HuyaDanmuMessage<NoticeMessage>
+    public class HuyaChatMessage : HuyaApiMessage<ChatMessage>
     {
     }
 }

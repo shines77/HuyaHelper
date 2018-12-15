@@ -24,7 +24,7 @@ namespace HuyaHelper
         public int sendItemCount;
     }
 
-    public class HuyaGiftMessage : HuyaDanmuMessage<GiftMessage>
+    public class HuyaGiftMessage : HuyaApiMessage<GiftMessage>
     {
     }
 }

@@ -8,16 +8,16 @@ namespace HuyaHelper
 {
     class HuyaChatRoom
     {
-        private HuyaChatMsg chatMessage = null;
-        private HuyaGiftMsg giftMessage = null;
+        private HuyaChatSocket chatMessage = null;
+        private HuyaGiftSocket giftMessage = null;
 
         private const string appId = "154440619445824126";
         private const string secretId = "790130ee";
 
         public HuyaChatRoom()
         {
-            chatMessage = new HuyaChatMsg();
-            giftMessage = new HuyaGiftMsg();
+            chatMessage = new HuyaChatSocket();
+            giftMessage = new HuyaGiftSocket();
         }
 
         public void setParent(frmMain form)

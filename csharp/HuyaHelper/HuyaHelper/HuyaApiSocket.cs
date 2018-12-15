@@ -21,7 +21,7 @@ namespace HuyaHelper
         Last
     }
 
-    public class HuyaChatApiMsg
+    public class HuyaApiSocket
     {
         private frmMain parent = null;
         private ActionType actionType = ActionType.None;
@@ -41,7 +41,7 @@ namespace HuyaHelper
         [DllImport("user32.dll", EntryPoint = "SendMessage")]
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, ref COPYDATASTRUCT lParam);
 
-        public HuyaChatApiMsg()
+        public HuyaApiSocket()
         {
             //ws = new ClientWebSocket();
             //cancellationToken = new CancellationToken();
@@ -177,7 +177,7 @@ namespace HuyaHelper
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 if (actionType == ActionType.getMessageNotice)
                 {
-                    var msg = json.Deserialize<HuyaNoticeMessage>(jsonStr);
+                    var msg = json.Deserialize<HuyaChatMessage>(jsonStr);
                     if (parent != null)
                     {
                         lock (locker)

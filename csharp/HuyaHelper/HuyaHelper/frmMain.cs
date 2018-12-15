@@ -18,9 +18,7 @@ namespace HuyaHelper
         private AtomicInt closing = new AtomicInt();
 
         private bool isActived = false;
-
-        private delegate void delegateChatMsg(string nickname, string content);
-        private delegate void delegateGiftMsg(string nickname, string itemName, int itemCount);
+        private string curRoomId = "";
 
         private struct RoomIdInfo
         {
@@ -38,6 +36,9 @@ namespace HuyaHelper
             new RoomIdInfo { roomId = "931827",   roomIntro = "931827 (大圣归来)" },
             new RoomIdInfo { roomId = "15382773", roomIntro = "15382773 (郭子)" },
         };
+
+        private delegate void delegateChatMsg(string nickname, string content);
+        private delegate void delegateGiftMsg(string nickname, string itemName, int itemCount);
 
         public frmMain()
         {
@@ -259,24 +260,30 @@ namespace HuyaHelper
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            int result;
+            int result = -1;
             if (chatroom != null)
             {
+                string roomId = txtBoxRoomId.Text;
+                roomId.Trim();
+
+                if (roomId == "")
+                {
+                    MessageBox.Show("房间号不能为空!", "HuyaHelper");
+                    return;
+                }
+
+                if (roomId == curRoomId && roomId != "")
+                {
+                    // Current roomId is not change, directly return.
+                    return;
+                }
+
                 if (chatroom.isRunning())
                 {
                     chatroom.logout();
                 }
 
-                string roomId = txtBoxRoomId.Text;
-                roomId.Trim();
-                if (roomId != "")
-                {
-                    result = chatroom.login(roomId);
-                }
-                else
-                {
-                    MessageBox.Show("房间号不能为空!", "HuyaHelper");
-                }
+                result = chatroom.login(roomId);
             }
         }
 
