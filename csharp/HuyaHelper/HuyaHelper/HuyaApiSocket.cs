@@ -118,7 +118,10 @@ namespace HuyaHelper
         private void onHeartbeat(object state)
         {
             //Debug.WriteLine("HuyaChatApiMsg::onHeartbeat()");
-            websocket.Send("ping");
+            if (websocket != null && websocket.ReadyState == WebSocketState.Open)
+            {
+                websocket.Send("ping");
+            }
         }
 
         private void onOpen(object sender, EventArgs eventArgs)
