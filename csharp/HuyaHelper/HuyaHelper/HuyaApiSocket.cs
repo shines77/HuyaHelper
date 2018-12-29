@@ -35,6 +35,8 @@ namespace HuyaHelper
         private WebSocketSharp.WebSocket websocket = null;
         private System.Threading.Timer heartbeatTimer = null;
 
+        private const int heartbeat_ms = 15000;
+
         private bool isWss = false;
         private const string ApiHost = "openapi.huya.com";
 
@@ -118,7 +120,7 @@ namespace HuyaHelper
         private void onHeartbeat(object state)
         {
             //Debug.WriteLine("HuyaChatApiMsg::onHeartbeat()");
-            if (websocket != null && websocket.ReadyState == WebSocketState.Open)
+            if (websocket != null && websocket.ReadyState == WebSocketSharp.WebSocketState.Open)
             {
                 websocket.Send("ping");
             }
@@ -139,7 +141,7 @@ namespace HuyaHelper
                     //
                     // See: https://www.cnblogs.com/arxive/p/7015853.html
                     //
-                    heartbeatTimer = new System.Threading.Timer(new TimerCallback(onHeartbeat), null, 0, 15000);
+                    heartbeatTimer = new System.Threading.Timer(new TimerCallback(onHeartbeat), null, 0, heartbeat_ms);
                 }
             }
             Debug.WriteLine("HuyaChatApiMsg::onOpen() leave");
