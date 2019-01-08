@@ -20,7 +20,7 @@ namespace HuyaHelper
             giftMessage = new HuyaGiftSocket();
         }
 
-        public void setParent(frmMain form)
+        public void setParent(MainForm form)
         {
             chatMessage.setParent(form);
             giftMessage.setParent(form);

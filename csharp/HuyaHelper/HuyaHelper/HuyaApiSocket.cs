@@ -23,7 +23,7 @@ namespace HuyaHelper
 
     public class HuyaApiSocket
     {
-        private frmMain parent = null;
+        private MainForm parent = null;
         private ActionType actionType = ActionType.None;
         private bool bIsRunning = false;
 
@@ -49,7 +49,7 @@ namespace HuyaHelper
             //cancellationToken = new CancellationToken();
         }
 
-        public void setParent(frmMain form)
+        public void setParent(MainForm form)
         {
             this.parent = form;
         }
@@ -136,7 +136,7 @@ namespace HuyaHelper
                 {
                     //lock (locker)
                     {
-                        parent.clearChatContent();
+                        parent.ClearChatContent();
                     }
                     //
                     // See: https://www.cnblogs.com/arxive/p/7015853.html
@@ -187,7 +187,7 @@ namespace HuyaHelper
                     {
                         lock (locker)
                         {
-                            parent.appendChatMsg(msg.data.sendNick, msg.data.content);
+                            parent.AppendChatMsg(msg.data.sendNick, msg.data.content);
                         }
 
                         /*
@@ -220,7 +220,7 @@ namespace HuyaHelper
                     {
                         lock (locker)
                         {
-                            parent.appendGiftMsg(msg.data.sendNick, msg.data.itemName, msg.data.sendItemCount);
+                            parent.AppendGiftMsg(msg.data.sendNick, msg.data.itemName, msg.data.sendItemCount);
                         }
 
                         /*
