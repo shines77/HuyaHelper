@@ -6,12 +6,12 @@ namespace HuyaHelper
 {
     class MD5Crypto
     {
-        static public string encrypt16(string plaintext)
+        static public string encrypt16(string plainText)
         {
             const int startIndex = 4;
             const int maxLength = startIndex + 8;
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plainText));
             StringBuilder sb = new StringBuilder();
             for (int i = startIndex; i < maxLength; i++)
             {
@@ -20,7 +20,7 @@ namespace HuyaHelper
             return sb.ToString();
         }
 
-        static public string encrypt16(string plaintext, int startIndex)
+        static public string encrypt16(string plainText, int startIndex)
         {
             // Adjust the startIndex range in [0, 8].
             if (startIndex < 0)
@@ -29,7 +29,7 @@ namespace HuyaHelper
                 startIndex = 8;
             int maxLength = startIndex + 8;
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plainText));
             StringBuilder sb = new StringBuilder();
             for (int i = startIndex; i < maxLength; i++)
             {
@@ -38,10 +38,10 @@ namespace HuyaHelper
             return sb.ToString();
         }
 
-        static public string encrypt32(string plaintext)
+        static public string encrypt32(string plainText)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plainText));
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < encryptedBytes.Length; i++)
             {
@@ -50,10 +50,10 @@ namespace HuyaHelper
             return sb.ToString();
         }
 
-        static public string encryptBase64(string plaintext)
+        static public string encryptBase64(string plainText)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+            byte[] encryptedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(plainText));
             return Convert.ToBase64String(encryptedBytes);
         }
     }
